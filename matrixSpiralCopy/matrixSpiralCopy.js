@@ -30,3 +30,60 @@ be the new leftmost column.
 19) The while loop will repeat itself for the inner parts of the arrays in matrix until top row becomes more than bottom row and left
 column becomes more than right column.
  */
+
+const matrixSpiralCopy = inputMatrix => {
+  let numRows = inputMatrix.length;
+  let numCols = inputMatrix[0].length;
+
+  let topRow = 0;
+  let bottomRow = numRows - 1;
+  let leftCol = 0;
+  let rightCol = numCols - 1;
+
+  let results = [];
+
+  while (topRow <= bottomRow && leftCol <= rightCol) {
+    for (let i = leftCol; i <= rightCol; i++) {
+      results.push(inputMatrix[topRow][i]);
+    }
+    topRow++;
+
+    for (let i = topRow; i <= bottomRow; i++) {
+      results.push(inputMatrix[i][rightCol]);
+    }
+    rightCol--;
+
+    if (topRow <= bottomRow) {
+      for (let i = rightCol; i >= leftCol; i--) {
+        results.push(inputMatrix[bottomRow][i]);
+      }
+      bottomRow--;
+    }
+
+    if (leftCol <= rightCol) {
+        for (let i = bottomRow; i >= topRow; i--) {
+            results.push(inputMatrix[i][leftCol]);
+        }
+        leftCol++;
+    }
+  }
+  return results;
+};
+
+console.log(matrixSpiralCopy(
+    [[1]]
+  ));   // should print [1]
+  
+  console.log(matrixSpiralCopy(
+    [[1], [2]]
+  ));   // should print [1, 2]
+  
+  console.log(matrixSpiralCopy(
+    [[1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10],
+    [11, 12, 13, 14, 15],
+    [16, 17, 18, 19, 20]]
+  ));   // should print [1, 2, 3, 4, 5, 10, 15, 20, 19, 18, 17, 16, 11, 6, 7, 8, 9, 14, 13, 12]
+  console.log(matrixSpiralCopy(
+    [[1, 2]]
+  )); // should print [1, 2];
