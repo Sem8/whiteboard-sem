@@ -12,18 +12,18 @@ top right but leave the diagonal element top left to bottom right.
  */
 
  // Rotating matrix counter-clockwise
-function rotateImage(matrix) {
-    matrix.forEach(row => row.reverse());
-    // console.log('matrix', matrix);
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < i; j++) {
-        [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+const rotateImageCounterClockwise = matrix => {
+  matrix.forEach(eachRowArr => eachRowArr.reverse());
+  // console.log(matrix);
 
-      }
+  for (let i = 0; i< matrix.length; i++) {
+    for (let j = 0; j < i; j++) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
     }
-  
-    return matrix;
   }
+
+  return matrix;
+}
 
 matrix1 = [
     [1, 2],
@@ -38,29 +38,69 @@ matrix2 = [
     [5, 5, 9, 3, 3]
   ]
 
-console.log(rotateImage(matrix1)); // should return 
+console.log(rotateImageCounterClockwise(matrix1)); // should return 
 /* [ 
   [2, 4],
   [1, 3]
 ] */
-console.log(rotateImage(matrix2)); // should return
+console.log(rotateImageCounterClockwise(matrix2)); // should return
 /*[ 
     [ 9, 0, 1, 2, 3 ],
     [ 9, 0, 1, 2, 3 ],
     [ 5, 6, 7, 8, 9 ],
     [ 1, 2, 3, 4, 5 ],
     [ 1, 2, 3, 4, 5 ]
-  ]
-*/
+  ]*/
 
 matrix3 = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9]
 ];
-console.log(rotateImage(matrix3)); // should return 
+console.log(rotateImageCounterClockwise(matrix3)); // should return 
 /*matrix3 = [
     [3, 6, 9],
     [2, 5, 8],
     [1, 4, 7]
+] */
+
+/* Pseudocode for rotating matrix clockwise
+1. Reverse the arrangement of the arrays in the matrix (not the elements within each matrix but the whole arrays themselves)
+2. Loop through the matrix with for loop.
+3. Make a second inner for loop inside the previous first for loop, starting at 0 and ending at less than index in outer first for 
+loop (j < i).
+4. Array destructure to swap [matrix[j][i], matrix[i][j]] = [matrix[i][j], matrix[j][i]]
+5. Return matrix.
+ */
+
+const rotateImageClockwise = matrix => {
+  matrix.reverse();
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < i; j++) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+    }
+  }
+  return matrix;
+}
+
+console.log(rotateImageClockwise(matrix1)); // should return 
+/* [ 
+  [3, 1],
+  [4, 2]
+] */
+
+console.log(rotateImageClockwise(matrix2)); // should return 
+/*[
+  [5, 4, 3, 2, 1],
+  [5, 4, 3, 2, 1],
+  [9, 8, 7, 6, 5],
+  [3, 2, 1, 0, 9],
+  [3, 2, 1, 0, 9]
+] */
+
+console.log(rotateImageClockwise(matrix3)); // should return
+/*[
+  [7, 4, 1],
+  [8, 5, 2],
+  [9, 6, 3]
 ] */
