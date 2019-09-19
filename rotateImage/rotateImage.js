@@ -1,29 +1,29 @@
-/* Pseudocode
-- The columns, starting from last column has to become rows in the matrix.
-1) Declare a variable let's call it rotatedMatrixArr and intialize it to empty array.
-2) Get the number of columns by getting length of first array in matrix, call it numCols
-3) Get the last column, call it rightCol and set it to numCols - 1.
-4) Have a while loop where rightCol is more than or equal to 0.
-5) get values from last column, make a for loop where i = 0, i < matrix.length; i++ and push into rotatedMatrixArr, 
-inputMatrix[i][rightCol].
-6) Decrease rightCol by 1 with rightCol-- outside for loop.
-7) Return rotatedMatrixArr as an array
+/* Pseudocode for rotating matrix counter-clockwise
+1. loop through the matrix (perhaps with forEach) and reverse the arrangement of the elements in each of the arrays in the matrix 
+with .reverse() array method
+2. Make another for loop (outside the previous one), loop through the now reversed matrix, starting at 0, ending at last array in 
+matrix with i < matrix.length
+3. Make a second for loop starting at 0 and this time ending at 1 less than the index from the outer for loop (j < i). This will start
+the inner loop at 0 but the outer loop can't start at 0 anymore it has to start at 1 since the inner loop will always be less than 
+outer loop and it has to start at 0. 
+4. Array destructure to swap [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]. This will swap diagonally bottom left to 
+top right but leave the diagonal element top left to bottom right. 
+5. Return matrix outside for loops. 
  */
 
-const rotateImage = inputMatrix => {
-    let rotatedMatrixArr = [];
-    let numCols = inputMatrix[0].length;
-    let rightCol = numCols - 1;
-    let len = inputMatrix.length;
+ // Rotating matrix counter-clockwise
+function rotateImage(matrix) {
+    matrix.forEach(row => row.reverse());
+    // console.log('matrix', matrix);
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < i; j++) {
+        [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
 
-    while (rightCol >= 0) {
-        for (let i = 0; i < len; i++) {
-            rotatedMatrixArr.push(inputMatrix[i][rightCol])
-        }
-        rightCol--;
+      }
     }
-    return [rotatedMatrixArr];
-}
+  
+    return matrix;
+  }
 
 matrix1 = [
     [1, 2],
@@ -52,3 +52,15 @@ console.log(rotateImage(matrix2)); // should return
     [ 1, 2, 3, 4, 5 ]
   ]
 */
+
+matrix3 = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+console.log(rotateImage(matrix3)); // should return 
+/*matrix3 = [
+    [3, 6, 9],
+    [2, 5, 8],
+    [1, 4, 7]
+] */
