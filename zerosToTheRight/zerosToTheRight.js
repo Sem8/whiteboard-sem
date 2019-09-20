@@ -7,22 +7,22 @@
 6. Return nonZeroNums to get how many non-zero numbers there are.
  */
 
-// const zerosToTheRight = arr => {
-//     let zeroArr = [];
-//     let nonZeroArr = [];
+const zerosToTheRight = arr => {
+    let zeroArr = [];
+    let nonZeroArr = [];
 
-//     for (let i = 0; i < arr.length; i++) {
-//         if (arr[i] === 0) {
-//             zeroArr.push(arr[i]);
-//         } else {
-//             nonZeroArr.push(arr[i]);
-//         }
-//     }
-//     let nonZeroNums = nonZeroArr.length;
-//     nonZeroArr.concat(zeroArr);
-//     console.log(nonZeroArr);
-//     return nonZeroNums;
-// }
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 0) {
+            zeroArr.push(arr[i]);
+        } else {
+            nonZeroArr.push(arr[i]);
+        }
+    }
+    let nonZeroNums = nonZeroArr.length;
+    let zerosToRightArr = nonZeroArr.concat(zeroArr);
+    console.log(zerosToRightArr);
+    return nonZeroNums;
+}
 
 /* Pseudocode for in place re-arrangement of 0s to mutate the original array.
 1. Initialize an empty array, call it nonZeroArr.
@@ -34,23 +34,24 @@ get that element by storing in a variable called nonZeroNum and push nonZeroNum 
 6. Return nonZeroAmount
  */
 
-const zerosToTheRight = arr => {
-    let nonZeroArr = [];
+// const zerosToTheRight = arr => {
+//     let nonZeroArr = [];
 
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] !== 0) {
-            let nonZeroNum = arr.splice(i, 1);
-            nonZeroArr.push(nonZeroNum);
-        }
-    }
-    let nonZeroAmount = nonZeroArr.length;
-    for (let i = 0; i < nonZeroArr.length; i++) {
-        arr.unshift(nonZeroArr[i]);
-    }
-    console.log(arr);
-    return nonZeroAmount;
-
-}
+//     for (let i = 0; i < arr.length; i++) {
+//         if (arr[i] !== 0) {
+//             let nonZeroNum = arr.splice(i, 1);
+//             console.log(nonZeroNum);
+//             nonZeroArr.push(nonZeroNum);
+//         }
+//     }
+//     console.log('only zeros', arr);
+//     let nonZeroAmount = nonZeroArr.length;
+//     for (let i = 0; i < nonZeroArr.length; i++) {
+//         arr.unshift(nonZeroArr[i]);
+//     }
+//     console.log(arr);
+//     return nonZeroAmount;
+// }
 
 console.log(zerosToTheRight([0, 3, 1, 0, -2])); // 3
 console.log(zerosToTheRight([4, 2, 1, 5])); // 4
