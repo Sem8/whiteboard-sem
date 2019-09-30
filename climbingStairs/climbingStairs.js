@@ -1,4 +1,4 @@
-// Solution 1: Non-recursive solution but no memoization
+// Solution 1: Non-recursive solution but no memoization, time complexity O(n)?
 /*Pseudocode: 
 1. Declare an array, call it arr and give it the elements 1, 1, 2 in that order. (For 0 stairs there's only 1 way to go through, for 1 stair
 there's also 1 way to go through, for 2 stairs there are 2 ways to go through - 2, 1+1);
@@ -11,17 +11,38 @@ the last array element with length -1 method.
 6. Outiside if statement (if input number of stairs is 1 or less then just return 1).
  */
 
-const climbingStairs = num => {
-    let arr = [1, 1, 2];
+// const climbingStairs = num => {
+//     let arr = [1, 1, 2];
 
-    if (num > 1) {
-        for (let i = 3; i <= num; i++) {
-            arr[i] = arr[i-1] + arr[i-2] + arr[i-3];
-        };
-        return arr[arr.length - 1];
+//     if (num > 1) {
+//         for (let i = 3; i <= num; i++) {
+//             arr[i] = arr[i-1] + arr[i-2] + arr[i-3];
+//         };
+//         return arr[arr.length - 1];
+//     };
+//     return 1;
+// };
+
+// Solution 2: Solving recursively but time complexity of O(n^3);
+/* Pseudocode: 
+1. Have a first base case of if input number of stairs num is less than 0 then return 0.
+2. Have a second base case of if input number of stairs is 0 then return 1.
+3. Else, (if input number of stairs num is more than 0), recursively call the function 3 times, first time call the function with number of
+stairs num minus 1, plus the recursive function with argument of input num minus 2 plus recursive function with argument of input num minus 3
+and return this result.
+ */
+
+const climbingStairs = num => {
+    // Base case 1:
+    if (num < 0) return 0;
+    
+    // Base case 2:
+    if (num == 0) return 1;
+
+    else {
+        return climbingStairs(num - 1) + climbingStairs(num - 2) + climbingStairs(num - 3);
     };
-    return 1;
-}
+};
 
 
 console.log(climbingStairs(1)); // 1
