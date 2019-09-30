@@ -32,25 +32,58 @@ stairs num minus 1, plus the recursive function with argument of input num minus
 and return this result.
  */
 
-const climbingStairs = num => {
-    // Base case 1:
-    if (num < 0) return 0;
+// const climbingStairs = num => {
+//     // Base case 1:
+//     if (num < 0) return 0;
     
-    // Base case 2:
-    if (num == 0) return 1;
+//     // Base case 2:
+//     if (num == 0) return 1;
 
+//     else {
+//         return climbingStairs(num - 1) + climbingStairs(num - 2) + climbingStairs(num - 3);
+//     };
+// };
+// console.log(climbingStairs(1)); // 1
+// console.log(climbingStairs(2)); // 2
+// console.log(climbingStairs(3)); // 4
+// console.log(climbingStairs(4)); // 7
+// console.log(climbingStairs(5)); // 13
+// console.log(climbingStairs(6)); // 24
+// console.log(climbingStairs(7)); // 44
+// console.log(climbingStairs(10)); // 274
+// console.log(climbingStairs(50)); // 10562230626642
+
+// Solution 3: Recursion with memoization with time complexity of O(n);
+/*Pseudocode:
+1. Function takes in number of stairs to go through as first parameter, and parameter called cache which will be an array of 
+length equal to the input number of stairs from first parameter.
+2. Make if statement, check if input number of stairs is less than 0 then return 0.
+3. Make an if statement, check if input number of stairs is 0 then return 1.
+4. Make an if statement, check if element value from array from our cache paremeter at index of the input number of stairs num is more than 1,
+if so, then return that element value from the cache array at index of num (input number of stairs to go through).
+5. Else set cache array at index of num (input number of stairs) equal to recursive call of function with first argument as input number of 
+stairs num minus 1 and second argument of cache array, plus recursive call of function with first argument as input number of stairs num minus
+2 and second argument of cache array, plus recursive call of function with first argument as input number of stairs num minus 3, and second
+argument as cache array.
+6. Return than cache array at the current index which is the current input number of stairs from parent function.
+ */
+
+const memoizedClimbStairs = (num, cache) => {
+    if (num < 0) return 0;
+    else if (num == 0) return 1;
+    else if (cache[num] > 1) return cache[num];
     else {
-        return climbingStairs(num - 1) + climbingStairs(num - 2) + climbingStairs(num - 3);
-    };
+        cache[num] = memoizedClimbStairs(num - 1, cache) + memoizedClimbStairs(num - 2, cache) + memoizedClimbStairs(num - 3, cache);
+        return cache[num];
+    }
 };
 
+console.log('1:', memoizedClimbStairs(1, Array(1))); // 1
+console.log('2:', memoizedClimbStairs(2, Array(2))); // 2
+console.log('3:', memoizedClimbStairs(3, Array(3))); // 4
+console.log('4:', memoizedClimbStairs(4, Array(4))); // 7
+console.log('5:', memoizedClimbStairs(5, Array(5))); // 13
+console.log('6:', memoizedClimbStairs(6, Array(6))); // 24
+console.log('7:', memoizedClimbStairs(7, Array(7))); // 44
 
-console.log(climbingStairs(1)); // 1
-console.log(climbingStairs(2)); // 2
-console.log(climbingStairs(3)); // 4
-console.log(climbingStairs(4)); // 7
-console.log(climbingStairs(5)); // 13
-console.log(climbingStairs(6)); // 24
-console.log(climbingStairs(7)); // 44
-console.log(climbingStairs(10)); // 274
-console.log(climbingStairs(50)); // 10562230626642
+
