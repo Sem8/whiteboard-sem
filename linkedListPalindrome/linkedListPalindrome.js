@@ -12,30 +12,78 @@ of array length minus 1 minus current index then return false and break.
 8. Outside for loop return true.
  */
 
+// const isLinkedListPalindrome = sllHead => {
+//   let current = sllHead;
+//   let nodeValStore = [];
+
+//   while (current) {
+//     nodeValStore.push(current.value);
+//     current = current.next;
+//   }
+
+//   for (let i = 0; i < nodeValStore.length / 2; i++) {
+//     if (nodeValStore[i] !== nodeValStore[nodeValStore.length - 1 - i]) {
+//       return false;
+//     }
+//   }
+//   return true;
+// };
+
+// Instructor solution: O(2n) --> ~ O(n) time complexity O(n) space complexity
+/*Pseudocode:
+1. Initialize a fast and slow variables and set them equal to the input head. They will serve as pointers on the linked list node, slow
+will traverse the node 1 at a time, fast will traverse the node 2 at a time so it traverses at twice the speed as slow pointer.
+2. Initialize an empty array, call it nodeValStore (it'll store the values of node at slow pointer)
+3. Make a while loop of while fast is not null and fast.next is not null (so that fast pointer will stop at the last node if there are
+odd number of nodes and stop after the last node if there are even number of nodes).
+4. Inside while loop, push the value of node at slow pointer into the nodeValStore array.
+5. Still inside while loop, increment slow pointer by 1 node by setting slow equal to slow.next
+6. Still inside while loop, increment fast pointer by 2 nodes by setting fast equal to fast.next.next. While loop will continue till fast
+is at last node or right after last node.
+7. if there're odd number of nodes in linked list, fast will stop at last node so make a while loop of while fast is not null, increment
+slow pointer by 1 node by setting slow equal to slow.next so that we can skip the middle node which is always equal on left and right side
+in a palindrome anyway.
+8. Outside while loop, make another while loop of while slow is not null, make a variable called top and set it equal to the last value
+in the nodeValStore by popping the last value from nodeValStore using pop method. 
+9. Inside the above while loop, make an if statement, check if top variable does not equal the value of node where slow pointer is
+currently at then return false.
+10. Ouside if statement, traverse the slow pointer through the rest (2nd half) of linked list by setting slow equal to slow.next. While 
+loop with if statement will continue until a non-palindrome is found or if all are palindromes and the first half is mirror image of 2nd
+half then while loop continues till slow pointer traverses the last node in linked list.
+11. Outside while loop return true.
+
+ */
 const isLinkedListPalindrome = sllHead => {
-    let current = sllHead;
-    let nodeValStore = [];      
+    let slow = sllHead;
+    let fast = sllHead;
+    let nodeValStore = [];
 
-    while (current) {
-        nodeValStore.push(current.value);
-        current = current.next;
-    }
+    while (fast && fast.next) {
+        nodeValStore.push(slow.value);
+        slow = slow.next;
+        fast = fast.next.next;
+    };
 
-    for (let i = 0; i < nodeValStore.length / 2; i++) {
-        if (nodeValStore[i] !== nodeValStore[nodeValStore.length - 1 - i]) {
+    if(fast) {
+        slow = slow.next;
+    };
+
+    while (slow) {
+        let top = nodeValStore.pop();
+
+        if (top !== slow.value) {
             return false;
         };
+        slow = slow.next;
     };
     return true;
-} 
-
-
+}
 
 class ListNode {
-    constructor(value) {
-        this.value = value;
-        this.next = null;
-    }
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
 }
 
 let a1 = new ListNode(1);
@@ -58,9 +106,7 @@ w.next = x;
 x.next = y;
 y.next = z;
 
-console.log(isLinkedListPalindrome(a1));   // should print true
-console.log(isLinkedListPalindrome(b1));   // should print false since now the 'a' node is not included in the linked list
+console.log(isLinkedListPalindrome(a1)); // should print true
+console.log(isLinkedListPalindrome(b1)); // should print false since now the 'a' node is not included in the linked list
 
-console.log(isLinkedListPalindrome(w));   // should print true
-
-
+console.log(isLinkedListPalindrome(w)); // should print true
