@@ -1,6 +1,5 @@
 /*Pseudocode:
-1. Initialize a variable called index and set it to 0 and get initialize a variable called element and set it to the the array element at 
-index (Before everything starts, index is 0 so array element will also be the first array element). 
+1. Initialize a variable called index and set it to 0 
 2. Initialize a variable called count and set it to 0.
 3. Make a while loop of while index is less than the length of the array.
 4. Make if statement, check if next element at index of the sum of array element at index (0 for first round for first element) + index
@@ -8,9 +7,10 @@ is not equal to 0 then set index to that next element and set element to array e
 5. Else if, (if element at array index + index is equal to 0) then set index
  */
 
+
+// My own solution: Time complexity O(n);
 const minJumps = arr => {
   let index = 0;
-  let element = arr[index];
   let count = 0;
 
   while (index <= arr.length - 1) {
@@ -23,6 +23,7 @@ const minJumps = arr => {
       }
     } else if (arr[index + arr[index]] !== 0) {
       index = arr[index + arr[index]];
+      // count++;
     }
 
     count++;
