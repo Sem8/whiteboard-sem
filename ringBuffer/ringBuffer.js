@@ -1,4 +1,4 @@
-// My solution:
+// My own solution:
 /*Pseudocode:
 RingBuffer class will take in an argument called capacity which will be the size of the ring buffer array.
 1. Make the ring buffer class with properties of this.capacity which is also an input parameter, this.storage which will be an empty array and 
@@ -10,8 +10,11 @@ this.storage array.
 2. Make an if statement of if this.count is less than or equal to this.capacity minus 1, then put the input value, val into the storage array in
 the position that the count is currently at.
 3. Increment this.count by 1.
-3. Else (if this.count is more than this.capacity minus 1), then reset this.count to 0, insert the input value, val into the storage array in the
+4. Else (if this.count is more than this.capacity minus 1), then reset this.count to 0, insert the input value, val into the storage array in the
 position of the newly reset count, then increment this.count by 1 again  
+
+allValues method:
+1. Just return the this.storage array
  */
 
 class RingBuffer {
