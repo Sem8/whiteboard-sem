@@ -46,31 +46,59 @@ and ending right before length of array (all the way to last element).
 maxProfit to this new difference.
 10. Outside for loop, return maxProfit
  */
-const findMaxProfit = arr => {
-  let maxProfit = arr[1] - arr[0];
-  let potentialBuyPrice = Math.min(...arr);
-  let buyPriceIndex = arr.indexOf(potentialBuyPrice);
-  // console.log(buyPriceIndex);
+// const findMaxProfit = arr => {
+//   let maxProfit = arr[1] - arr[0];
+//   let potentialBuyPrice = Math.min(...arr);
+//   let buyPriceIndex = arr.indexOf(potentialBuyPrice);
+//   // console.log(buyPriceIndex);
 
-  if (buyPriceIndex == arr.length - 1) {
-    buyPriceIndex--;
-    potentialBuyPrice = arr[buyPriceIndex];
-    // console.log(buyPriceIndex);
-    for (let i = buyPriceIndex; i >= 0; i--) {
-      if (arr[i] < potentialBuyPrice) {
-        potentialBuyPrice = arr[i];
-      }
-    }
-    // console.log(potentialBuyPrice);
-  }
-  let sellPriceIndexStart = arr.indexOf(potentialBuyPrice) + 1;
-  for (let i = sellPriceIndexStart; i < arr.length; i++) {
-    if (arr[i] - potentialBuyPrice > maxProfit) {
-      maxProfit = arr[i] - potentialBuyPrice;
-    }
-  }
+//   if (buyPriceIndex == arr.length - 1) {
+//     buyPriceIndex--;
+//     potentialBuyPrice = arr[buyPriceIndex];
+//     // console.log(buyPriceIndex);
+//     for (let i = buyPriceIndex; i >= 0; i--) {
+//       if (arr[i] < potentialBuyPrice) {
+//         potentialBuyPrice = arr[i];
+//       }
+//     }
+//     // console.log(potentialBuyPrice);
+//   }
+//   let sellPriceIndexStart = arr.indexOf(potentialBuyPrice) + 1;
+//   for (let i = sellPriceIndexStart; i < arr.length; i++) {
+//     if (arr[i] - potentialBuyPrice > maxProfit) {
+//       maxProfit = arr[i] - potentialBuyPrice;
+//     }
+//   }
+//   return maxProfit;
+// };
+
+// Suggested Solution: O(n) time complexity
+/*Pseudocode:
+first get the difference between current element in loop iteration and first array element if difference is higher, then re-set the minimum price
+to current element if current element is lower
+1. Get the first element from the input array and set it to a variable called minPrice
+2. Get the difference between first and second array elements by subtracting 1st array element (buy price) from 2nd array element (sell price) and
+set it to a variable called maxProfit 
+3. Make a for loop, starting at index 1 (b/c index 0 is already taken by minPrice) and ending at index of array length, loopin through whole array
+4. Set the current array element at current index to a variable currentPrice.
+5. Get the maximum between current maxProfit and the difference between minPrice and currentPrice with minPrice - currentPrice using Math.max 
+method, and reset the maxProfit to that new maximum value
+6. If currentPrice is lower than the original minPrice (originally it is the first array element) then reset the minPrice to that currentPrice 
+which is the current array element at current index
+7. Outside for loop, return the maxProfit. 
+ */
+const findMaxProfit = arr => {
+  let minPrice = arr[0];
+  let maxProfit = arr[1] - arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    let currentPrice = arr[i];
+    maxProfit = Math.max(currentPrice - minPrice, maxProfit);
+    minPrice = Math.min(currentPrice, minPrice);
+  };
   return maxProfit;
 };
+
 
 /* Some console.log tests */
 console.log(findMaxProfit([10, 7, 5, 8, 11, 9])); // should print 6
