@@ -99,4 +99,3 @@ const robotPaths = n => {
 console.log(robotPaths(2))   // Should console.log 2
 console.log(robotPaths(3))   // Should console.log 12
 console.log(robotPaths(4))   // Should console.log 184
-

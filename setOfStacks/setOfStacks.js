@@ -146,8 +146,14 @@ console.log(stacks.popAtWithRollOver(2)); // should print 7
 // console.log(stacks.stacks[0].length); // 3
 // console.log(stacks.stacks[1].length); // 3
 // console.log(stacks.stacks[2].length); // 3
-// console.log(stacks.stacks[3].length); // 2
-// console.log(stacks.stacks[4].length); // 3
+// console.log(stacks.stacks[3].length); // 3
+// console.log(stacks.stacks[4].length); // 2
+
+console.log(stacks.stacks[0]); // 3
+console.log(stacks.stacks[1]); // 3
+console.log(stacks.stacks[2]); // 3
+console.log(stacks.stacks[3]); // 3
+console.log(stacks.stacks[4]); // 2
 
 
 // console.log(stacks.popAT(2)); // should print 9
